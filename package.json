@@ -1,0 +1,23 @@
+{
+  "name": "hack-chat-bot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "test-bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coldcod/hack-chat-bot.git"
+  },
+  "author": "coldcod",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coldcod/hack-chat-bot/issues"
+  },
+  "homepage": "https://github.com/coldcod/hack-chat-bot#readme",
+  "dependencies": {
+    "hack-chat": "^1.2.0",
+    "weather-js": "^2.0.0"
+  }
+}
