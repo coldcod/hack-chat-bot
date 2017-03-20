@@ -40,6 +40,7 @@ chat.on("chat", function(session, nick, text) {
 
             default:
                 break;
+                
         }
     }
 });
