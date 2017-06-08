@@ -40,9 +40,7 @@ chat.on("onlineAdd", function(session, nick, channel) {
 
 chat.on("chat", function(session, nick, text) {
     var textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
-    fs.appendFileSync('log.txt', textToLog, function (err) {
-        if (err) console.log(err);
-    });
+    fs.appendFileSync('log.txt', textToLog);
     console.log(textToLog);
     if (text.indexOf("-m") == 0) {
         var command = text.split("-m")[1].trim().split(" ")[0].toLowerCase();
