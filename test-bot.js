@@ -1,6 +1,6 @@
 var HackChat = require("hack-chat");
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programmingg", "huemiser_", "abc");
+var programmingSession = chat.join("programming", "huemiser_", "abc");
 
 chat.on("onlineSet", function(session, users) {
     // Each event from a group contains a session argument as first argument

@@ -5,7 +5,7 @@ var date = new Date();
 var currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
 var time = currentTime + ' on ' + currentDate;
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programmingg", "crf", "ldcod");
+var programmingSession = chat.join("programming", "crf", "ldcod");
 
 chat.on("onlineSet", function(session, users) {
     // Each event from a group contains a session argument as first argument
