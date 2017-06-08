@@ -1,6 +1,7 @@
 var HackChat = require("hack-chat");
+var fs = require('fs');
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programming", "huemiser_", "abc");
+var programmingSession = chat.join("programming", "crf", "ldcod");
 
 chat.on("onlineSet", function(session, users) {
     // Each event from a group contains a session argument as first argument
@@ -34,7 +35,11 @@ chat.on("onlineAdd", function(session, nick, channel) {
 })
 
 chat.on("chat", function(session, nick, text) {
-    console.log(nick + "@" + session.channel + ": " + text);
+    var textToLog = nick + "@" + session.channel + ": " + text + '\n';
+    fs.appendFileSync('log.txt', textToLog, function (err) {
+        if (err) console.log(err);
+    });
+    console.log(textToLog);
     if (text.indexOf("-m") == 0) {
         var command = text.split("-m")[1].trim().split(" ")[0].toLowerCase();
         var args = text.split("-m")[1].trim().split(" ").slice(1).join(" ").toLowerCase() || "";
@@ -56,6 +61,10 @@ chat.on("ratelimit", function(time) {
     console.log("BOT BEING RATE-LIMITED");
 })
 
-chat.on("onlineAdd", function (session, nick, channel) {
-    if (nick == "stamsarger") chat.leave(whateverthefuckthisis);
-})
+/*chat.on("onlineAdd", function (session, nick, channel) {
+    if (nick == "stamsarger") {
+        chat.on("chat", function (session, nick, text) {
+            console.log(nick + ": " + text);
+        })
+    }
+}) */
