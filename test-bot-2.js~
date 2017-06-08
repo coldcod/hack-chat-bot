@@ -1,9 +1,5 @@
 var HackChat = require("hack-chat");
 var fs = require('fs');
-var currentTime = require('./lib/time.js').getTime();
-var date = new Date();
-var currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
-var time = currentTime + ' on ' + currentDate;
 var chat = new HackChat(); // Client group for multiple channels
 var programmingSession = chat.join("programmingg", "crf", "ldcod");
 
@@ -39,7 +35,7 @@ chat.on("onlineAdd", function(session, nick, channel) {
 })
 
 chat.on("chat", function(session, nick, text) {
-    var textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
+    var textToLog = nick + "@" + session.channel + ": " + text + '\n';
     fs.appendFileSync('log.txt', textToLog, function (err) {
         if (err) console.log(err);
     });
