@@ -2,7 +2,7 @@ var HackChat = require("hack-chat");
 var fs = require('fs');
 var currentTime = require('./lib/time.js').getTime();
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programmingg", "crf", "ldcod");
+var programmingSession = chat.join("programming", "crf", "ldcod");
 var ws = require("ws")
 var wss = new ws("wss://hack.chat/chat-ws");
 
