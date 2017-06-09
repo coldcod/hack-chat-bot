@@ -1,12 +1,12 @@
 var HackChat = require("hack-chat");
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programming", "xcv", "abc");
+var programmingSession = chat.join("programmingg", "xcv", "abc");
 var ws = require("ws")
 var wss = new ws("wss://hack.chat/chat-ws");
 
 setInterval(function() {
 		wss.send(JSON.stringify({cmd: 'ping'}));
-}), 50000)
+}, 50000)
 
 chat.on("onlineSet", function(session, users) {
     // Each event from a group contains a session argument as first argument
