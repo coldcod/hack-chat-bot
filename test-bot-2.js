@@ -1,9 +1,6 @@
 var HackChat = require("hack-chat");
 var fs = require('fs');
 var currentTime = require('./lib/time.js').getTime();
-var date = new Date();
-var currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
-var time = currentTime + ' on ' + currentDate;
 var chat = new HackChat(); // Client group for multiple channels
 var programmingSession = chat.join("programming", "crf", "ldcod");
 
