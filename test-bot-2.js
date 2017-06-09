@@ -6,9 +6,11 @@ var programmingSession = chat.join("programming", "crf", "ldcod");
 var ws = require("ws")
 var wss = new ws("wss://hack.chat/chat-ws");
 
-setInterval(function() {
-		wss.send(JSON.stringify({cmd: 'ping'}));
-}, 50000)
+wss.on('open', function () {
+  setInterval(function() {
+      wss.send(JSON.stringify({cmd: 'ping'}));
+  }, 4900);
+})
 
 chat.on("onlineSet", function(session, users) {
     // Each event from a group contains a session argument as first argument
