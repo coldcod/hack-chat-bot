@@ -38,8 +38,12 @@ chat.on("onlineAdd", function(session, nick, channel) {
     console.log(nick + " joined ?" + session.channel );
 })
 
+var textToLog, date, currentDate, time;
 chat.on("chat", function(session, nick, text) {
-    var textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
+    date = new Date();
+    currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+    time = currentTime + ' on ' + currentDate;
+    textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
     fs.appendFileSync('log.txt', textToLog);
     console.log(textToLog);
     if (text.indexOf("-m") == 0) {
