@@ -1,6 +1,6 @@
 var HackChat = require("hack-chat");
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programming", "xcv", "abc");
+var programmingSession = chat.join("programming", "huemiser", "abc");
 var ws = require("ws")
 var wss = new ws("wss://hack.chat/chat-ws");
 
