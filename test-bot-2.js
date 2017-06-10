@@ -44,8 +44,18 @@ chat.on("onlineAdd", function(session, nick, channel) {
 
 var textToLog, date, currentDate, time, currentTime;
 chat.on("chat", function(session, nick, text) {
-    currentTime = require('./lib/time.js').getTime();
-    date = new Date();
+     date = new Date();
+     function formatAMPM(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + '.' + date.getSeconds() + ' ' + ampm;
+        return strTime;
+     }
+    currentTime = formatAMPM(date);
     currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
     time = currentTime + ' on ' + currentDate;
     textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
