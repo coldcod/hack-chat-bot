@@ -1,6 +1,5 @@
 var HackChat = require("hack-chat");
 var fs = require('fs');
-var currentTime = require('./lib/time.js').getTime();
 var chat = new HackChat(); // Client group for multiple channels
 var programmingSession = chat.join("programming", "crf", "ldcod");
 var ws = require("ws")
@@ -9,7 +8,7 @@ var wss = new ws("wss://hack.chat/chat-ws");
 wss.on('open', function () {
   setInterval(function() {
       wss.send(JSON.stringify({cmd: 'ping'}));
-  }, 4900);
+  }, 50000);
 })
 
 chat.on("onlineSet", function(session, users) {
@@ -43,8 +42,9 @@ chat.on("onlineAdd", function(session, nick, channel) {
     console.log(nick + " joined ?" + session.channel );
 })
 
-var textToLog, date, currentDate, time;
+var textToLog, date, currentDate, time, currentTime;
 chat.on("chat", function(session, nick, text) {
+    currentTime = require('./lib/time.js').getTime();
     date = new Date();
     currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
     time = currentTime + ' on ' + currentDate;
