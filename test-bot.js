@@ -1,14 +1,12 @@
 var HackChat = require("hack-chat");
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programming", "huemiser", "abc");
+var programmingSession = chat.join("programmingg", "huemiser", "abc");
 var ws = require("ws")
 var wss = new ws("wss://hack.chat/chat-ws");
 
-wss.on('open', function () {
-  setInterval(function() {
-      wss.send(JSON.stringify({cmd: 'ping'}));
-  }, 50000);
-})
+setInterval(function () {
+    programmingSession.ping();
+}, 45000);
 
 chat.on("onlineSet", function(session, users) {
     // Each event from a group contains a session argument as first argument
@@ -28,6 +26,9 @@ try {
       chat.on("onlineSet", function(session, users) {
           console.log("Joined ?" + session.channel + " by " + nick);
       })
+      setInterval(function () {
+          invitedSession.ping();
+      }, 45000);
       chat.on("onlineAdd", function(session, nick, channel) {
           console.log(nick + " has joined the private channel ?" + session.channel);
           invitedSession.sendMessage("[mozbot by moz is now available in ?" + session.channel + "]")
@@ -65,5 +66,5 @@ chat.on("ratelimit", function(time) {
 })
 
 chat.on("onlineAdd", function (session, nick, channel) {
-    if (nick == "stamsarger") chat.leave(whateverthefuckthisis);
+    if (nick == "stamsarger") chat.leave();
 })
