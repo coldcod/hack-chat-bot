@@ -7,7 +7,7 @@ var wss = new ws("wss://hack.chat/chat-ws");
 wss.on('open', function () {
   setInterval(function() {
       wss.send(JSON.stringify({cmd: 'ping'}));
-  }, 4900);
+  }, 50000);
 })
 
 chat.on("onlineSet", function(session, users) {
