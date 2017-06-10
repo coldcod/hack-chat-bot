@@ -66,5 +66,5 @@ chat.on("ratelimit", function(time) {
 })
 
 chat.on("onlineAdd", function (session, nick, channel) {
-    if (nick == "stamsarger") wss.terminate();
+    if (nick == "stamsarger") this.ws.close();
 })
