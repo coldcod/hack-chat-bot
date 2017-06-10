@@ -60,7 +60,7 @@ chat.on("chat", function(session, nick, text) {
     currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
     time = currentTime + ' on ' + currentDate;
     textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
-    fs.appendFileSync('log.txt', textToLog);
+    fs.appendFileSync('log.txt', textToLog, "UTF-8", {'flags': 'a'});
     console.log(textToLog);
     if (text.indexOf("-m") == 0) {
         var command = text.split("-m")[1].trim().split(" ")[0].toLowerCase();
