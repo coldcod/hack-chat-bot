@@ -40,7 +40,7 @@ try {
 }
 
 chat.on("onlineAdd", function(session, nick, channel) {
-    var joinedNotification = nick + " joined ?" + session.channel;
+    var joinedNotification = nick + " joined ?" + session.channel + '\n';
     console.log(joinedNotification);
     fs.appendFileSync('log.txt', joinedNotification, "UTF-8", {'flags': 'a'});
 })
