@@ -40,7 +40,9 @@ try {
 }
 
 chat.on("onlineAdd", function(session, nick, channel) {
-    console.log(nick + " joined ?" + session.channel );
+    var joinedNotification = nick + " joined ?" + session.channel;
+    console.log(joinedNotification);
+    fs.appendFileSync('log.txt', joinedNotification, "UTF-8", {'flags': 'a'});
 })
 
 var textToLog, date, currentDate, time, currentTime;
@@ -82,5 +84,3 @@ chat.on("chat", function(session, nick, text) {
 chat.on("ratelimit", function(time) {
     console.log("BOT BEING RATE-LIMITED");
 })
-
-
