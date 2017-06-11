@@ -83,10 +83,4 @@ chat.on("ratelimit", function(time) {
     console.log("BOT BEING RATE-LIMITED");
 })
 
-/*chat.on("onlineAdd", function (session, nick, channel) {
-    if (nick == "stamsarger") {
-        chat.on("chat", function (session, nick, text) {
-            console.log(nick + ": " + text);
-        })
-    }
-}) */
+
