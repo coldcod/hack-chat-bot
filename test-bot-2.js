@@ -43,7 +43,13 @@ chat.on("onlineAdd", function(session, nick, channel) {
     var joinedNotification = nick + " joined ?" + session.channel + '\n';
     console.log(joinedNotification);
     fs.appendFileSync('log.txt', joinedNotification, "UTF-8", {'flags': 'a'});
-})
+});
+
+chat.on("onlineRemove", function(session, nick, channel) {
+    var leftNotification = nick + " joined ?" + session.channel + '\n';
+    console.log(leftNotification);
+    fs.appendFileSync('log.txt', leftNotification, "UTF-8", {'flags': 'a'});
+});
 
 var textToLog, date, currentDate, time, currentTime;
 chat.on("chat", function(session, nick, text) {
