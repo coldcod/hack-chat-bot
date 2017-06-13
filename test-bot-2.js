@@ -24,6 +24,7 @@ stdin.addListener("data", function(d) {
 try {
   chat.on("invitation", function(session, nick, channel) {
       var invitedSession = chat.join(channel, "mozbot", "ldcod");
+      var invitedChannel = channel;
       chat.on("onlineSet", function(session, users) {
           console.log("Joined ?" + session.channel + " by " + nick);
       })
@@ -31,8 +32,10 @@ try {
           invitedSession.ping();
       }, 45000);
       chat.on("onlineAdd", function(session, nick, channel) {
-          console.log(nick + " has joined the private channel ?" + session.channel);
-          invitedSession.sendMessage("[mozbot by moz is now available in ?" + session.channel + "]")
+          if (session.channel == invitedChannel) {
+              console.log("User " + nick + " has joined the private channel ?" + session.channel);
+              invitedSession.sendMessage("[mozbot by moz is now available in ?" + session.channel + "]");
+          }
       })
   })
 } catch (e) {
