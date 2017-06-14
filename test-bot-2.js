@@ -1,9 +1,8 @@
 var HackChat = require("hack-chat");
 var fs = require('fs');
 var chat = new HackChat(); // Client group for multiple channels
-var programmingSession = chat.join("programming", "crf", "ldcod");
-var ws = require("ws")
-var wss = new ws("wss://hack.chat/chat-ws");
+var botNick = 'crf', botPswd = 'xch';
+var programmingSession = chat.join("programmingg", botNick, botPswd);
 
 setInterval(function () {
     programmingSession.ping();
@@ -23,19 +22,27 @@ stdin.addListener("data", function(d) {
 //read end
 try {
   chat.on("invitation", function(session, nick, channel) {
-      var invitedSession = chat.join(channel, "mozbot", "ldcod");
+      var invitedSession = chat.join(channel, botNick, botPswd);
       var invitedChannel = channel;
+      var invitedNick = nick;
       chat.on("onlineSet", function(session, users) {
           console.log("Joined ?" + session.channel + " by " + nick);
       })
-      setInterval(function () {
-          invitedSession.ping();
-      }, 45000);
+      try {
+          setInterval(function () {
+              programmingSession.ping();
+          }, 45000);
+      } catch (e) {
+          console.log();
+      };
       chat.on("onlineAdd", function(session, nick, channel) {
           if (session.channel == invitedChannel) {
               console.log("User " + nick + " has joined the private channel ?" + session.channel);
-              invitedSession.sendMessage("[mozbot by moz is now available in ?" + session.channel + "]");
+              invitedSession.sendMessage("[crf by X33_C is now available in ?" + session.channel + "]");
           }
+      })
+      chat.on("onlineRemove", function (session, nick, channel) {
+          if (session.channel == invitedChannel && nick == invitedNick) { invitedSession.leave(); };
       })
   })
 } catch (e) {
@@ -49,46 +56,50 @@ chat.on("onlineAdd", function(session, nick, channel) {
 });
 
 chat.on("onlineRemove", function(session, nick, channel) {
-    var leftNotification = nick + " joined ?" + session.channel + '\n';
+    var leftNotification = nick + " left ?" + session.channel + '\n';
     console.log(leftNotification);
     fs.appendFileSync('log.txt', leftNotification, "UTF-8", {'flags': 'a'});
 });
 
-var textToLog, date, currentDate, time, currentTime;
-chat.on("chat", function(session, nick, text) {
-     date = new Date();
-     function formatAMPM(date) {
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = hours + ':' + minutes + '.' + date.getSeconds() + ' ' + ampm;
-        return strTime;
-     }
-    currentTime = formatAMPM(date);
-    currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
-    time = currentTime + ' on ' + currentDate;
-    textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
-    fs.appendFileSync('log.txt', textToLog, "UTF-8", {'flags': 'a'});
-    console.log(textToLog);
-    if (text.indexOf("-m") == 0) {
-        var command = text.split("-m")[1].trim().split(" ")[0].toLowerCase();
-        var args = text.split("-m")[1].trim().split(" ").slice(1).join(" ").toLowerCase() || "";
-        switch (command) {
+try {
+    var textToLog, date, currentDate, time, currentTime;
+    chat.on("chat", function(session, nick, text) {
+         date = new Date();
+         function formatAMPM(date) {
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes + '.' + date.getSeconds() + ' ' + ampm;
+            return strTime;
+         }
+        currentTime = formatAMPM(date);
+        currentDate = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+        time = currentTime + ' on ' + currentDate;
+        textToLog = "[" + time + "] " + nick + "@" + session.channel + ": " + text + '\n';
+        fs.appendFileSync('log.txt', textToLog, "UTF-8", {'flags': 'a'});
+        console.log(textToLog);
+        if (text.indexOf("-m") == 0) {
+            var command = text.split("-m")[1].trim().split(" ")[0].toLowerCase();
+            var args = text.split("-m")[1].trim().split(" ").slice(1).join(" ").toLowerCase() || "";
+            switch (command) {
 
-            case 'weather':
-                var weather = require('./commands/weather.js');
-                weather.getWeather(args, session);
-                break;
+                case 'weather':
+                    var weather = require('./commands/weather.js');
+                    weather.getWeather(args, session);
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
 
+            }
         }
-    }
-});
+    });
+} catch (e) {
+    console.log("Error happened on('chat')\n" + e);
+}
 
 chat.on("ratelimit", function(time) {
     console.log("BOT BEING RATE-LIMITED");
