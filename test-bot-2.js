@@ -2,7 +2,7 @@ var HackChat = require("hack-chat");
 var fs = require('fs');
 var chat = new HackChat(); // Client group for multiple channels
 var botNick = 'crf', botPswd = 'xch';
-var programmingSession = chat.join("programmingg", botNick, botPswd);
+var programmingSession = chat.join("programming", botNick, botPswd);
 
 setInterval(function () {
     programmingSession.ping();
